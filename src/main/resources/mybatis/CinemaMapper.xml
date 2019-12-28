@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.flimticketserver.mapper.CinemaMapper">
+
+    <resultMap id="cinemaMap" type="com.zy.flimticketserver.entity.CinemaEntity">
+        <id property="cinemaId" column="cinemaId" javaType="String"/>
+        <result property="cinemaAddress" column="cinemaAddress" javaType="String"/>
+        <result property="cinemaCity" column="cinemaCity" javaType="String"/>
+        <result property="cinemaName" column="cinemaName" javaType="String"/>
+    </resultMap>
+
+    <select id="findCinemaByCityName" resultMap="cinemaMap" parameterType="string">
+        select * from cinema where cinemaCity like #{cityName}
+    </select>
+
+    <select id="findCinemaByName" resultMap="cinemaMap" parameterType="string">
+        select * from cinema where cinemaName like #{cinemaName}
+    </select>
+
+    <select id="getCinemaIds" resultType="string" parameterType="string">
+        select distinct cinemaId from cinema where cinemaCity like concat('%',#{cityName},'%')
+    </select>
+
+    <select id="findCinemaByIds" resultMap="cinemaMap" parameterType="arraylist">
+        select * from cinema where cinemaId in 
+        <foreach collection="array" open="(" separator="," close=")" item="cinemaId">
+            #{cinemaId}
+        </foreach>
+    </select>
+</mapper>

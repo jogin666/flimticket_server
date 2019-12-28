@@ -14,7 +14,7 @@
         <result property="language" column="languages" javaType="String"/>
         <result property="releaseDates" column="releaseDates" javaType="String"/>
         <result property="coverUrl" column="coverUrl" javaType="String"/>
-        <result property="screenTypes" javaType="screenTypes" jdbcType="String"/>
+        <result property="screenTypes" column="screenTypes" javaType="String"/>
     </resultMap>
 
     <select id="findFilms" resultMap="filmMap">
